@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PAGES } from "../../config";
+
+if (PAGES.teaching.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+const { title, subtitle } = PAGES.teaching;
+
+const mathCamps = [
+    { title: "Math Camp 2024", href: "/teaching/math-camp-2024/", role: "Instructor", institution: "UC Santa Barbara" },
+    { title: "Math Camp 2023", href: "/teaching/math-camp-2023/", role: "Instructor", institution: "UC Santa Barbara" },
+    { title: "Math Camp 2019", role: "Instructor", institution: "University of Chicago" },
+];
+
+const courses = [
+    "Statistics for Economics",
+    "Introduction to Econometrics",
+    "Environmental Economics",
+    "Intermediate Microeconomics",
+    "Principles of Microeconomics",
+    "Program Evaluation",
+    "Advanced Statistics I",
+    "Economic Analysis of Law",
+    "Public Policy Analysis",
+];
+---
+
+<BaseLayout title={title}>
+    <header class="page-header">
+        <h1 class="page-title">{title}</h1>
+        {subtitle && <p class="page-subtitle">{subtitle}</p>}
+    </header>
+
+    <div class="prose">
+        <p>I obtained the Certificate in College and University Teaching (CCUT) at the University of California, Santa Barbara.</p>
+
+        <h2>Math Camps</h2>
+        <ul>
+            {mathCamps.map((item) => (
+                <li>
+                    {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+                    {` — ${item.role}, ${item.institution}`}
+                </li>
+            ))}
+        </ul>
+        <p>Syllabi are linked where available; additional Math Camp materials are available on request.</p>
+
+        <h2>Courses Taught</h2>
+        <ul>
+            {courses.map((course) => (
+                <li>{course}</li>
+            ))}
+        </ul>
+    </div>
+</BaseLayout>

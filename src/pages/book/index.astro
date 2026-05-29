@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { PAGES } from "../../config";
+
+if (PAGES.book.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+---
+
+<BaseLayout title={PAGES.book.title}>
+    <div class="container-narrow">
+        <header class="page-header">
+            <h1 class="page-title">{PAGES.book.title}</h1>
+            {PAGES.book.subtitle && <p class="page-subtitle">{PAGES.book.subtitle}</p>}
+        </header>
+
+        <div class="prose">
+            <p><a href="/book/the-counterfactual/">The Counterfactual</a></p>
+        </div>
+    </div>
+</BaseLayout>

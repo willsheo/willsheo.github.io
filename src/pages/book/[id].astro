@@ -1,0 +1,75 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tag from "../../components/ui/Tag.astro";
+import { PAGES, SITE } from "../../config";
+
+if (PAGES.book.isActive === false) {
+    return Astro.redirect("/404");
+}
+
+export async function getStaticPaths() {
+    if (PAGES.book.isActive === false) return [];
+
+    const chapters = (await getCollection("book"))
+        .filter((chapter: any) => chapter.data.draft !== true)
+        .sort((a: any, b: any) => a.data.order - b.data.order);
+
+    return chapters.map((chapter: any, index: number) => ({
+        params: { id: chapter.id },
+        props: {
+            chapter,
+            previous: chapters[index - 1] || null,
+            next: chapters[index + 1] || null,
+        },
+    }));
+}
+
+const { chapter, previous, next } = Astro.props as any;
+const { Content } = await render(chapter);
+const description = chapter.data.description || SITE.desc;
+---
+
+<BaseLayout title={chapter.data.title} description={description} ogType="article">
+    <article class="container-narrow book-chapter">
+        <a href="/book" class="back-link">Back to book</a>
+
+        <header class="page-header mt-4">
+            <p class="chapter-kicker">{chapter.data.label || `Chapter ${chapter.data.order}`}</p>
+            <h1 class="page-title">{chapter.data.title}</h1>
+            {chapter.data.description && (
+                <p class="page-subtitle">{chapter.data.description}</p>
+            )}
+            {chapter.data.tags && chapter.data.tags.length > 0 && (
+                <div class="flex gap-2 flex-wrap mt-4">
+                    {chapter.data.tags.map((tag: string) => (
+                        <Tag name={tag} size="sm" />
+                    ))}
+                </div>
+            )}
+        </header>
+
+        <div class="prose">
+            <Content />
+        </div>
+
+        <nav class="chapter-nav">
+            {previous ? (
+                <a href={`/book/${previous.id}`} class="chapter-nav-link">
+                    <span>Previous</span>
+                    <strong>{previous.data.title}</strong>
+                </a>
+            ) : (
+                <span />
+            )}
+            {next ? (
+                <a href={`/book/${next.id}`} class="chapter-nav-link text-right">
+                    <span>Next</span>
+                    <strong>{next.data.title}</strong>
+                </a>
+            ) : (
+                <span />
+            )}
+        </nav>
+    </article>
+</BaseLayout>
