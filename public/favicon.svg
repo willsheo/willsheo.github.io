@@ -1,11 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="SWH monogram">
-  <text
-    x="256"
-    y="274"
-    fill="#143bd6"
-    font-family="Helvetica Neue, Arial, sans-serif"
-    font-size="174"
-    font-weight="300"
-    text-anchor="middle"
-    dominant-baseline="middle">SWH</text>
+  <g transform="translate(256 284) scale(1.09 1)">
+    <text
+      x="0"
+      y="0"
+      fill="none"
+      stroke="#071b3d"
+      stroke-width="11"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      font-family="Helvetica Neue, Arial, sans-serif"
+      font-size="192"
+      font-weight="300"
+      text-anchor="middle"
+      dominant-baseline="middle">SWH</text>
+  </g>
 </svg>
