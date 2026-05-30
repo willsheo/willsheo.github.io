@@ -1,10 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-  <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="SWH monogram">
+  <rect class="bg" width="512" height="512" rx="96" fill="#fbfbf8"/>
+  <rect class="panel" x="38" y="38" width="436" height="436" rx="72" fill="#f2f5f1" stroke="#0f766e" stroke-width="18"/>
+  <text
+    class="mark"
+    x="256"
+    y="292"
+    fill="#0f766e"
+    font-family="Inter, Arial, sans-serif"
+    font-size="126"
+    font-weight="800"
+    text-anchor="middle"
+    dominant-baseline="middle">SWH</text>
   <style>
-    path { stroke: #000; }
     @media (prefers-color-scheme: dark) {
-      path { stroke: #FFF; }
+      .bg { fill: #181816; }
+      .panel { fill: #22231f; stroke: #5eead4; }
+      .mark { fill: #5eead4; }
     }
   </style>
 </svg>
