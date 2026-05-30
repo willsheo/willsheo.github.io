@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="SWH monogram">
+  <rect width="512" height="512" fill="#ffffff"/>
   <g transform="translate(256 284) scale(1.09 1)">
     <text
       x="0"
       y="0"
-      fill="none"
+      fill="#071b3d"
       stroke="#071b3d"
-      stroke-width="11"
+      stroke-width="4"
       stroke-linecap="round"
       stroke-linejoin="round"
       font-family="Helvetica Neue, Arial, sans-serif"
