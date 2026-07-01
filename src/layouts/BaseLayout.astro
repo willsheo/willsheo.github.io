@@ -42,7 +42,16 @@ const jsonLd = {
     "@type": "Person",
     name: SITE.author,
     url: SITE.website,
-    jobTitle: "Ph.D. Candidate in Economics",
+    jobTitle: "Associate Research Fellow",
+    worksFor: {
+        "@type": "Organization",
+        name: "Korea Institute for International Economic Policy",
+        alternateName: "KIEP",
+        url: "https://www.kiep.go.kr/",
+    },
+    sameAs: [
+        "https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481",
+    ],
     description: SITE.desc,
 };
 ---

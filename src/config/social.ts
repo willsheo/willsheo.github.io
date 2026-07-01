@@ -14,6 +14,12 @@ export const SOCIALS: SocialLink[] = [
         isActive: true,
     },
     {
+        name: "KIEP Profile",
+        href: "https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481",
+        linkTitle: `Seonmin Will Heo at KIEP`,
+        isActive: true,
+    },
+    {
         name: "Google Scholar",
         href: "https://scholar.google.com/citations?hl=en&user=2ZlxMncAAAAJ",
         linkTitle: `Seonmin Will Heo on Google Scholar`,
@@ -24,5 +30,6 @@ export const SOCIALS: SocialLink[] = [
 export const SOCIAL_ICONS: Record<string, string> = {
     Github: "Github",
     Mail: "Mail",
+    "KIEP Profile": "KIEP",
     "Google Scholar": "GoogleScholar",
 };

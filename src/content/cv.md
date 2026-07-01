@@ -1,6 +1,6 @@
 ---
 name: "Seonmin Will Heo"
-title: "Ph.D. Candidate, UC Santa Barbara"
+title: "Associate Research Fellow, KIEP"
 ---
 
 [Download the current CV](/files/CV.pdf).

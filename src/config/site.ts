@@ -3,7 +3,7 @@ import type { SiteConfig, ThemeConfig } from "../types";
 export const SITE: SiteConfig = {
     website: "https://swheo.com/",
     author: "Seonmin Will Heo",
-    desc: "Personal website of Seonmin Will Heo, Ph.D. Candidate in Economics at the University of California, Santa Barbara.",
+    desc: "Personal website of Seonmin Will Heo, Associate Research Fellow at the Korea Institute for International Economic Policy (KIEP).",
     title: "Seonmin Will Heo",
     ogImage: "/avatar.jpg",
     postPerPage: 5,
