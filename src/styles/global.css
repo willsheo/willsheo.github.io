@@ -505,8 +505,8 @@ a:hover,
 }
 
 .sidebar-avatar {
-    width: 144px;
-    height: 144px;
+    width: 72px;
+    height: 72px;
     border-radius: 18px;
     object-fit: cover;
     border: 2px solid var(--border);
@@ -1032,8 +1032,8 @@ a:hover,
     }
 
     .sidebar-avatar {
-        width: 112px;
-        height: 112px;
+        width: 64px;
+        height: 64px;
     }
 
     .main-body {
@@ -1054,8 +1054,8 @@ a:hover,
     }
 
     .sidebar-avatar {
-        width: 80px;
-        height: 80px;
+        width: 48px;
+        height: 48px;
     }
 
     .sidebar-name {

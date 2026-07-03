@@ -1,7 +1,7 @@
 ---
 name: "Seonmin Will Heo"
 avatar: "avatar.jpg"
-shortBio: "Associate Research Fellow, KIEP"
+shortBio: "Associate Research Fellow"
 institution: "Korea Institute for International Economic Policy"
 ---
 
