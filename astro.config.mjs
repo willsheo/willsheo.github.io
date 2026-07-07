@@ -18,6 +18,13 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  i18n: {
+    locales: ['en', 'ko'],
+    defaultLocale: 'en',
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   site: 'https://swheo.com',
   integrations: [sitemap()],
 });
