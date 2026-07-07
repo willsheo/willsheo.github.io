@@ -43,7 +43,10 @@ function formatJournalHtml(value?: string) {
 }
 ---
 
-<BaseLayout title={PAGES.publications.title}>
+<BaseLayout
+    title={PAGES.publications.title}
+    description={PAGES.publications.description}
+>
     <header class="page-header">
         <h1 class="page-title">{PAGES.publications.title}</h1>
         {PAGES.publications.subtitle && <p class="page-subtitle">{PAGES.publications.subtitle}</p>}

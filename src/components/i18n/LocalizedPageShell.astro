@@ -17,7 +17,12 @@ const robots =
     content.status === "published" ? "index, follow" : "noindex, nofollow";
 ---
 
-<BaseLayout title={content.title} robots={robots} lang={locale}>
+<BaseLayout
+    title={content.title}
+    description={content.description}
+    robots={robots}
+    lang={locale}
+>
     <div class="container-narrow">
         <header class="page-header">
             <h1 class="page-title">{content.title}</h1>

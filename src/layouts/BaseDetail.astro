@@ -45,9 +45,57 @@ if (detail.extraInput) {
 
 const description = entry.data.description || detail.description || SITE.desc;
 const ogImage = entry.data.image || SITE.ogImage;
+const siteURL = Astro.site ?? new URL(SITE.website);
+const pageURL = new URL(Astro.url.pathname, siteURL).href;
+const externalURL = detail.externalUrl
+    ? new URL(detail.externalUrl, siteURL).href
+    : undefined;
+
+function parseAuthorNames(value?: string) {
+    if (!value) return [SITE.author];
+
+    return value
+        .replace(/,\s*and\s+/g, ", ")
+        .replace(/\s+and\s+/g, ", ")
+        .split(",")
+        .map((name) => name.trim())
+        .filter(Boolean);
+}
+
+const structuredData =
+    collection === "publications"
+        ? {
+              "@context": "https://schema.org",
+              "@type": "ScholarlyArticle",
+              headline: detail.title,
+              name: detail.title,
+              author: parseAuthorNames(detail.authors).map((name) => ({
+                  "@type": "Person",
+                  name,
+              })),
+              abstract: description,
+              datePublished: entry.data.date,
+              url: pageURL,
+              sameAs: externalURL,
+              keywords: detail.tags?.join(", "),
+              isPartOf:
+                  detail.extraInput && detail.extraInput !== "Working paper"
+                      ? {
+                            "@type": "CreativeWork",
+                            name: detail.extraInput,
+                        }
+                      : undefined,
+          }
+        : undefined;
 ---
 
-<BaseLayout title={detail.title} description={description} ogImage={ogImage} ogType="article">
+<BaseLayout
+    title={detail.title}
+    description={description}
+    ogImage={ogImage}
+    ogType="article"
+    structuredData={structuredData}
+>
     <div class="flex justify-between items-center mb-4">
         <BackLink href={detail.backHref} label={collection} />
         {detail.externalUrl && (

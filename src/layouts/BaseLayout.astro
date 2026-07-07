@@ -26,6 +26,7 @@ interface Props {
     ogType?: "website" | "article";
     robots?: "index, follow" | "noindex, nofollow";
     lang?: string;
+    structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const { 
@@ -35,27 +36,75 @@ const {
     ogType = "website",
     robots = "index, follow",
     lang = SITE.lang,
+    structuredData,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || SITE.website);
+const siteURL = Astro.site ?? new URL(SITE.website);
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
+const absoluteImageURL = new URL(ogImage, siteURL);
+const fullTitle = title === SITE.title ? SITE.title : `${title} | ${SITE.title}`;
+const ogLocale = lang === "ko" ? "ko_KR" : "en_US";
+const personId = new URL("/#person", siteURL).href;
+const websiteId = new URL("/#website", siteURL).href;
+const webPageId = new URL(`${Astro.url.pathname}#webpage`, siteURL).href;
 
-const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: SITE.author,
-    url: SITE.website,
-    jobTitle: "Associate Research Fellow",
-    worksFor: {
-        "@type": "Organization",
-        name: "Korea Institute for International Economic Policy",
-        alternateName: "KIEP",
-        url: "https://www.kiep.go.kr/",
+const defaultStructuredData = [
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": personId,
+        name: SITE.author,
+        url: SITE.website,
+        image: absoluteImageURL.href,
+        jobTitle: "Associate Research Fellow",
+        worksFor: {
+            "@type": "Organization",
+            name: "Korea Institute for International Economic Policy",
+            alternateName: "KIEP",
+            url: "https://www.kiep.go.kr/",
+        },
+        sameAs: [
+            "https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481",
+            "https://scholar.google.com/citations?hl=en&user=2ZlxMncAAAAJ",
+            "https://github.com/willsheo",
+        ],
+        description: SITE.desc,
     },
-    sameAs: [
-        "https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481",
-    ],
-    description: SITE.desc,
-};
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": websiteId,
+        name: SITE.title,
+        url: SITE.website,
+        inLanguage: SITE.lang,
+        publisher: { "@id": personId },
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": webPageId,
+        url: canonicalURL.href,
+        name: fullTitle,
+        headline: title,
+        description,
+        inLanguage: lang,
+        isPartOf: { "@id": websiteId },
+        about: { "@id": personId },
+        primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: absoluteImageURL.href,
+            width: 1200,
+            height: 1379,
+        },
+    },
+];
+
+const pageStructuredData = Array.isArray(structuredData)
+    ? structuredData
+    : structuredData
+      ? [structuredData]
+      : [];
+const jsonLd = [...defaultStructuredData, ...pageStructuredData];
 ---
 
 <!doctype html>
@@ -109,27 +158,36 @@ const jsonLd = {
         </style>
 
         <!-- Canonical URL -->
-        <link rel="canonical" href={canonicalURL} />
+        <link rel="canonical" href={canonicalURL.href} />
 
         <!-- General Meta Tags -->
-        <title>{title} | {SITE.title}</title>
-        <meta name="title" content={`${title} | ${SITE.title}`} />
+        <title>{fullTitle}</title>
+        <meta name="title" content={fullTitle} />
         <meta name="description" content={description} />
         <meta name="author" content={SITE.author} />
+        <meta name="application-name" content={SITE.title} />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content={ogType} />
-        <meta property="og:url" content={Astro.url} />
-        <meta property="og:title" content={title} />
+        <meta property="og:site_name" content={SITE.title} />
+        <meta property="og:locale" content={ogLocale} />
+        <meta property="og:url" content={canonicalURL.href} />
+        <meta property="og:title" content={fullTitle} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={new URL(ogImage, Astro.url)} />
+        <meta property="og:image" content={absoluteImageURL.href} />
+        <meta property="og:image:secure_url" content={absoluteImageURL.href} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="1379" />
+        <meta property="og:image:alt" content={`${SITE.author} profile photo`} />
 
         <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={Astro.url} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={new URL(ogImage, Astro.url)} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content={canonicalURL.href} />
+        <meta name="twitter:title" content={fullTitle} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={absoluteImageURL.href} />
+        <meta name="twitter:image:alt" content={`${SITE.author} profile photo`} />
 
         <!-- Structured Data (JSON-LD) -->
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

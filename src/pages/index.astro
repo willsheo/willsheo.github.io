@@ -1,7 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { PAGES } from "../config";
+import { PAGES, SITE } from "../config";
 
 // Load bio content
 const bioEntry = await getEntry("bio", "bio");
@@ -10,7 +10,7 @@ const { Content: BioContent } = bioEntry
 	: { Content: null };
 ---
 
-<BaseLayout title={PAGES.home.title}>
+<BaseLayout title={SITE.title} description={PAGES.home.description}>
 	<div class="container-narrow">
 		{
 			(PAGES.home.title || PAGES.home.subtitle) && (

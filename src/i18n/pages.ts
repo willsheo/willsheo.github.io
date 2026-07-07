@@ -12,6 +12,7 @@ export interface LocalizedPageContent {
     title: string;
     path: string;
     status: "draft" | "published";
+    description?: string;
     body: string[];
 }
 

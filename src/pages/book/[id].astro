@@ -28,9 +28,26 @@ export async function getStaticPaths() {
 const { chapter, previous, next } = Astro.props as any;
 const { Content } = await render(chapter);
 const description = chapter.data.description || SITE.desc;
+const siteURL = Astro.site ?? new URL(SITE.website);
+const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: chapter.data.title,
+    author: {
+        "@type": "Person",
+        name: SITE.author,
+    },
+    description,
+    url: new URL(Astro.url.pathname, siteURL).href,
+};
 ---
 
-<BaseLayout title={chapter.data.title} description={description} ogType="article">
+<BaseLayout
+    title={chapter.data.title}
+    description={description}
+    ogType="article"
+    structuredData={structuredData}
+>
     <article class="container-narrow book-chapter">
         <a href="/book" class="back-link">Back to book</a>
 

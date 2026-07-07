@@ -8,11 +8,19 @@ interface Props {
     collection: "publications" | "teaching" | "all";
     title: string;
     subtitle?: string;
+    description?: string;
     entries?: any[];
     page?: any;
 }
 
-const { collection, title, subtitle, entries: manualEntries, page } = Astro.props;
+const {
+    collection,
+    title,
+    subtitle,
+    description,
+    entries: manualEntries,
+    page,
+} = Astro.props;
 
 let entries = manualEntries || (collection !== "all" ? await getCollection(collection as any) : []);
 if (page) entries = page.data;
@@ -24,7 +32,7 @@ const sortedEntries = entries.sort((a: any, b: any) => {
 });
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} description={description || subtitle}>
     {(title || subtitle) && (
         <header class="page-header">
             {title && <h1 class="page-title">{title}</h1>}

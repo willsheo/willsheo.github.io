@@ -31,6 +31,7 @@ export interface SocialLink {
 export interface PageConfig {
     title: string;
     subtitle: string;
+    description?: string;
     isActive: boolean;
 }
 
