@@ -91,7 +91,12 @@ export const LOCALIZED_PAGES: Record<
             title: "강의",
             path: "/ko/teaching/",
             status: "draft",
-            body: ["한국어 강의 페이지를 준비 중입니다."],
+            description:
+                "허선민의 강의 경험과 Certificate in College and University Teaching (CCUT) 정보입니다.",
+            body: [
+                "저는 경제학, 계량경제학, 통계학, 환경경제학 등 다양한 과목에서 강의 및 조교 경험을 쌓아 왔으며, UC Santa Barbara에서는 경제학 박사과정 신입생을 위한 Math Camp를 강의했습니다.",
+                "또한 University of California, Santa Barbara에서 Certificate in College and University Teaching (CCUT)을 취득했습니다.",
+            ],
         },
         cv: {
             title: "이력서",
