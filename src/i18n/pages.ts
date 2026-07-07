@@ -112,3 +112,54 @@ export function getLocalizedPage(
 export function getAlternateLocale(locale: Locale): Locale {
     return locale === "ko" ? "en" : "ko";
 }
+
+export function getLocaleFromPath(pathname: string): Locale {
+    return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en";
+}
+
+export function getAlternateLocalePath(pathname: string): string {
+    const locale = getLocaleFromPath(pathname);
+    const alternateLocale = getAlternateLocale(locale);
+    const page = getPageKeyFromPath(locale, pathname);
+
+    return getLocalizedPage(alternateLocale, page).path;
+}
+
+function getPageKeyFromPath(
+    locale: Locale,
+    pathname: string,
+): LocalizedPageKey {
+    const normalizedPath = ensureTrailingSlash(pathname);
+    const exactMatch = Object.entries(LOCALIZED_PAGES[locale]).find(
+        ([, page]) => page.path === normalizedPath,
+    );
+
+    if (exactMatch) {
+        return exactMatch[0] as LocalizedPageKey;
+    }
+
+    const pathWithoutLocale =
+        locale === "ko"
+            ? normalizedPath.replace(/^\/ko\/?/, "/")
+            : normalizedPath;
+    const section = pathWithoutLocale.split("/").filter(Boolean)[0];
+
+    switch (section) {
+        case "publications":
+            return "publications";
+        case "book":
+            return "book";
+        case "teaching":
+            return "teaching";
+        case "cv":
+            return "cv";
+        case "contact":
+            return "contact";
+        default:
+            return "home";
+    }
+}
+
+function ensureTrailingSlash(pathname: string): string {
+    return pathname.endsWith("/") ? pathname : `${pathname}/`;
+}

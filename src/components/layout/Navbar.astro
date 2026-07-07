@@ -1,5 +1,6 @@
 ---
 import { NAV_LINKS, PAGES } from "../../config";
+import LanguageSwitcher from "../i18n/LanguageSwitcher.astro";
 
 const currentPath = Astro.url.pathname;
 ---
@@ -33,4 +34,5 @@ const currentPath = Astro.url.pathname;
             ))
         }
     </ul>
+    <LanguageSwitcher />
 </nav>

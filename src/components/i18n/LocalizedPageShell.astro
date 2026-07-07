@@ -1,9 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
-    getAlternateLocale,
     getLocalizedPage,
-    LANGUAGE_LABELS,
     type Locale,
     type LocalizedPageKey,
 } from "../../i18n/pages";
@@ -15,8 +13,6 @@ interface Props {
 
 const { locale, page } = Astro.props;
 const content = getLocalizedPage(locale, page);
-const alternateLocale = getAlternateLocale(locale);
-const alternatePage = getLocalizedPage(alternateLocale, page);
 const robots =
     content.status === "published" ? "index, follow" : "noindex, nofollow";
 ---
@@ -29,9 +25,6 @@ const robots =
 
         <div class="prose">
             {content.body.map((paragraph) => <p>{paragraph}</p>)}
-            <p>
-                <a href={alternatePage.path}>{LANGUAGE_LABELS[alternateLocale]}</a>
-            </p>
         </div>
     </div>
 </BaseLayout>
