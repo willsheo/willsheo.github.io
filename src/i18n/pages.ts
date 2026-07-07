@@ -68,13 +68,18 @@ export const LOCALIZED_PAGES: Record<
             title: "소개",
             path: "/ko/",
             status: "draft",
-            body: ["한국어 소개 페이지를 준비 중입니다."],
+            description:
+                "대외경제정책연구원(KIEP) 부연구위원 허선민의 개인 웹사이트입니다.",
+            body: [
+                "저는 대외경제정책연구원(KIEP) 부연구위원으로, 중동 지역 경제 연구를 담당하고 있습니다. 제 연구는 자연재해, 기후 위험, 초국경 오염을 포함한 환경 충격에 시장과 가계가 어떻게 대응하는지를 다룹니다.",
+            ],
         },
         publications: {
             title: "연구",
             path: "/ko/publications/",
             status: "draft",
-            body: ["한국어 연구 페이지를 준비 중입니다."],
+            description: "허선민의 연구 목록입니다.",
+            body: [],
         },
         book: {
             title: "책",

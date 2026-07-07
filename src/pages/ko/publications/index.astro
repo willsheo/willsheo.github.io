@@ -1,5 +1,29 @@
 ---
-import LocalizedPageShell from "../../../components/i18n/LocalizedPageShell.astro";
+import { getCollection } from "astro:content";
+import ResearchList from "../../../components/research/ResearchList.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getLocalizedPage } from "../../../i18n/pages";
+
+const content = getLocalizedPage("ko", "publications");
+const robots =
+    content.status === "published" ? "index, follow" : "noindex, nofollow";
+
+const publications = (await getCollection("publications")).sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
+    return dateB - dateA;
+});
 ---
 
-<LocalizedPageShell locale="ko" page="publications" />
+<BaseLayout
+    title={content.title}
+    description={content.description}
+    robots={robots}
+    lang="ko"
+>
+    <header class="page-header">
+        <h1 class="page-title">{content.title}</h1>
+    </header>
+
+    <ResearchList publications={publications} />
+</BaseLayout>

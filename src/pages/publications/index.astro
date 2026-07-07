@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ResearchList from "../../components/research/ResearchList.astro";
 import { PAGES } from "../../config";
 
 if (PAGES.publications.isActive === false) {
@@ -13,34 +14,6 @@ const publications = (await getCollection("publications")).sort((a, b) => {
     return dateB - dateA;
 });
 
-function getCoauthors(author?: string) {
-    if (!author) return "";
-
-    return author
-        .replace("Seonmin Will Heo, ", "")
-        .replace("Seonmin Will Heo and ", "")
-        .replace("Seonmin Will Heo", "")
-        .replace(/^,\s*/, "")
-        .replace(/^and\s+/, "")
-        .replace(/,\s*and\s*/, " and ")
-        .trim();
-}
-
-function formatJournalHtml(value?: string) {
-    if (!value) return "";
-
-    const escaped = value
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-
-    return escaped.replace(
-        "The Review of Economics and Statistics",
-        "<em>The Review of Economics and Statistics</em>",
-    );
-}
 ---
 
 <BaseLayout
@@ -52,35 +25,5 @@ function formatJournalHtml(value?: string) {
         {PAGES.publications.subtitle && <p class="page-subtitle">{PAGES.publications.subtitle}</p>}
     </header>
 
-    <section class="research-list">
-        {publications.map((entry) => {
-            const coauthors = getCoauthors(entry.data.author);
-            const journal = formatJournalHtml(entry.data.journal);
-
-            return (
-                <article class="research-item">
-                    <h2 class="research-title">
-                        <a href={`/publications/${entry.id}/`}>{entry.data.title}</a>
-                    </h2>
-
-                    <div class="research-meta">
-                        {coauthors && <span>with {coauthors}</span>}
-                        {journal && <span set:html={journal} />}
-                        {entry.data.external_url && (
-                            <a href={entry.data.external_url} target="_blank" rel="noopener noreferrer">
-                                Paper
-                            </a>
-                        )}
-                    </div>
-
-                    {entry.data.description && (
-                        <details class="research-abstract">
-                            <summary>Abstract</summary>
-                            <p>{entry.data.description}</p>
-                        </details>
-                    )}
-                </article>
-            );
-        })}
-    </section>
+    <ResearchList publications={publications} />
 </BaseLayout>
