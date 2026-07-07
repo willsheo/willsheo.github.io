@@ -26,5 +26,9 @@ export default defineConfig({
     },
   },
   site: 'https://swheo.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.startsWith('https://swheo.com/ko/'),
+    }),
+  ],
 });

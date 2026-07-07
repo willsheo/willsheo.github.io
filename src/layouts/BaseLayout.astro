@@ -25,6 +25,7 @@ interface Props {
     ogImage?: string;
     ogType?: "website" | "article";
     robots?: "index, follow" | "noindex, nofollow";
+    lang?: string;
 }
 
 const { 
@@ -32,7 +33,8 @@ const {
     description = SITE.desc, 
     ogImage = SITE.ogImage,
     ogType = "website",
-    robots = "index, follow"
+    robots = "index, follow",
+    lang = SITE.lang,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || SITE.website);
@@ -57,7 +59,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={SITE.lang}>
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
