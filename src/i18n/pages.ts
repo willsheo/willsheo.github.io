@@ -166,7 +166,7 @@ export const LOCALIZED_PAGES: Record<
             path: "/ko/contact/",
             status: "published",
             body: [],
-            facts: [{ label: "이메일", value: "shep@kiep.go.kr" }],
+            facts: [{ label: "이메일", value: "sheo@kiep.go.kr" }],
         },
     },
 };
