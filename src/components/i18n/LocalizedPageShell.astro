@@ -30,6 +30,27 @@ const robots =
 
         <div class="prose">
             {content.body.map((paragraph) => <p>{paragraph}</p>)}
+            {content.facts && content.facts.length > 0 && (
+                <ul class="localized-facts">
+                    {content.facts.map((fact) => (
+                        <li>
+                            <strong>{fact.label}</strong>
+                            <span class="localized-fact-value">
+                                {Array.isArray(fact.value)
+                                    ? fact.value.map((line) => <span>{line}</span>)
+                                    : fact.value}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+            {content.links && content.links.length > 0 && (
+                <ul>
+                    {content.links.map((link) => (
+                        <li><a href={link.href}>{link.label}</a></li>
+                    ))}
+                </ul>
+            )}
         </div>
     </div>
 </BaseLayout>

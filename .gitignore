@@ -7,6 +7,7 @@ dist/
 
 # local private archive, not for public repository or deployment
 private/
+tmp/
 
 # dependencies
 node_modules/

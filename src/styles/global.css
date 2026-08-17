@@ -543,6 +543,31 @@ a:hover,
     padding: 0 0.5rem;
 }
 
+.sidebar-profile-ko {
+    width: min(100%, 12rem);
+    align-items: center;
+    text-align: center;
+}
+
+.sidebar-profile-ko .sidebar-info {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.sidebar-profile-ko .sidebar-title-ko {
+    margin-top: 0.125rem;
+}
+
+.sidebar-profile-ko .sidebar-info svg {
+    flex: 0 0 auto;
+}
+
+.sidebar-profile-ko .sidebar-socials {
+    width: 100%;
+    justify-content: center;
+}
+
 /* Navbar */
 .navbar {
     padding: 1rem 1.5rem;
@@ -746,6 +771,35 @@ a:hover,
 .prose ol li::marker {
     color: var(--accent);
     font-weight: 800;
+}
+
+.prose .localized-facts {
+    list-style: none;
+    padding-left: 0;
+}
+
+.prose .localized-facts li {
+    display: grid;
+    grid-template-columns: 0.4rem 5.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+}
+
+.prose .localized-facts li::before {
+    content: "";
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.prose .localized-facts strong {
+    font-weight: 700;
+}
+
+.prose .localized-fact-value > span {
+    display: block;
 }
 
 .prose a {

@@ -14,11 +14,40 @@ export interface LocalizedPageContent {
     status: "draft" | "published";
     description?: string;
     body: string[];
+    facts?: Array<{
+        label: string;
+        value: string | string[];
+    }>;
+    links?: Array<{
+        label: string;
+        href: string;
+    }>;
 }
 
 export const LANGUAGE_LABELS: Record<Locale, string> = {
     en: "English",
     ko: "한국어",
+};
+
+export interface LocalizedProfileContent {
+    name: string;
+    institution: string;
+    title: string;
+    avatarAlt: string;
+    kiepProfileUrl: string;
+    kiepProfileLabel: string;
+}
+
+export const LOCALIZED_PROFILE: Record<"ko", LocalizedProfileContent> = {
+    ko: {
+        name: "허선민",
+        institution: "대외경제정책연구원(KIEP)",
+        title: "부연구위원",
+        avatarAlt: "허선민의 프로필 사진",
+        kiepProfileUrl:
+            "https://www.kiep.go.kr/expertsView.es?mid=a10406000000&staff_seq=481",
+        kiepProfileLabel: "허선민 KIEP 프로필",
+    },
 };
 
 export const LOCALIZED_PAGES: Record<
@@ -70,8 +99,20 @@ export const LOCALIZED_PAGES: Record<
             status: "draft",
             description:
                 "대외경제정책연구원(KIEP) 부연구위원 허선민의 개인 웹사이트입니다.",
-            body: [
-                "저는 대외경제정책연구원(KIEP) 부연구위원으로, 중동 지역 경제 연구를 담당하고 있습니다. 제 연구는 자연재해, 기후 위험, 초국경 오염을 포함한 환경 충격에 시장과 가계가 어떻게 대응하는지를 다룹니다.",
+            body: [],
+            facts: [
+                {
+                    label: "소속",
+                    value: "대외경제정책연구원(KIEP)",
+                },
+                {
+                    label: "직위",
+                    value: "부연구위원",
+                },
+                {
+                    label: "연구 분야",
+                    value: ["중동지역", "환경경제학"],
+                },
             ],
         },
         publications: {
@@ -93,22 +134,39 @@ export const LOCALIZED_PAGES: Record<
             status: "draft",
             description:
                 "허선민의 강의 경험과 Certificate in College and University Teaching (CCUT) 정보입니다.",
-            body: [
-                "저는 경제학, 계량경제학, 통계학, 환경경제학 등 다양한 과목에서 강의 및 조교 경험을 쌓아 왔으며, UC Santa Barbara에서는 경제학 박사과정 신입생을 위한 Math Camp를 강의했습니다.",
-                "또한 University of California, Santa Barbara에서 Certificate in College and University Teaching (CCUT)을 취득했습니다.",
+            body: [],
+            facts: [
+                {
+                    label: "강의 분야",
+                    value: "경제학 · 계량경제학 · 통계학 · 환경경제학",
+                },
+                {
+                    label: "주요 과목",
+                    value: "경제통계학 · 계량경제학 입문 I·II · 환경경제학 · 중급미시경제학 · 미시경제학 원론 · 경제학 박사과정 수학 캠프",
+                },
+                {
+                    label: "교수법 인증",
+                    value: "Certificate in College and University Teaching (CCUT), UC Santa Barbara",
+                },
             ],
         },
         cv: {
             title: "이력서",
             path: "/ko/cv/",
-            status: "draft",
-            body: ["한국어 이력서 페이지를 준비 중입니다."],
+            status: "published",
+            description: "대외경제정책연구원(KIEP) 부연구위원 허선민의 국문 이력서입니다.",
+            body: ["이력서는 아래 링크에서 확인하실 수 있습니다."],
+            links: [
+                { label: "국문 이력서 (PDF)", href: "/files/CV_ko.pdf" },
+                { label: "영문 이력서 (PDF)", href: "/files/CV.pdf" },
+            ],
         },
         contact: {
             title: "연락처",
             path: "/ko/contact/",
-            status: "draft",
-            body: ["한국어 연락처 페이지를 준비 중입니다."],
+            status: "published",
+            body: [],
+            facts: [{ label: "이메일", value: "shep@kiep.go.kr" }],
         },
     },
 };
