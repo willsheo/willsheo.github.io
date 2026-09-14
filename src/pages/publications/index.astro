@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ResearchList from "../../components/research/ResearchList.astro";
+import ResearchSections from "../../components/research/ResearchSections.astro";
 import { PAGES } from "../../config";
 
 if (PAGES.publications.isActive === false) {
@@ -25,5 +25,5 @@ const publications = (await getCollection("publications")).sort((a, b) => {
         {PAGES.publications.subtitle && <p class="page-subtitle">{PAGES.publications.subtitle}</p>}
     </header>
 
-    <ResearchList publications={publications} />
+    <ResearchSections publications={publications} locale="en" />
 </BaseLayout>

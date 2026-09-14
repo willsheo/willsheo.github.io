@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { RESEARCH_SECTIONS, type Locale } from "../../i18n/pages";
+import ResearchList from "./ResearchList.astro";
+import { UAE_POLICY_PUBLICATION } from "../../i18n/policy";
+
+interface Props {
+    publications: CollectionEntry<"publications">[];
+    locale: Locale;
+}
+
+const { publications, locale } = Astro.props;
+const labels = RESEARCH_SECTIONS[locale];
+const policy = UAE_POLICY_PUBLICATION[locale];
+---
+
+<section class="section" aria-labelledby="academic-research">
+    <h2 id="academic-research" class="section-title">{labels.academic}</h2>
+    <div class="research-section-content">
+        <ResearchList publications={publications} />
+    </div>
+</section>
+
+<section class="section" aria-labelledby="policy-research">
+    <h2 id="policy-research" class="section-title">{labels.policy}</h2>
+    <div class="research-section-content">
+        <article class="research-item">
+            <h3 class="research-title">
+                <a href={locale === "ko" ? UAE_POLICY_PUBLICATION.originalUrl : UAE_POLICY_PUBLICATION.summaryUrl}>{policy.title}</a>
+            </h3>
+            <div class="research-meta">
+                <span>{policy.series}</span>
+                <time datetime={UAE_POLICY_PUBLICATION.date}>{policy.dateLabel}</time>
+            </div>
+            <div class="research-meta policy-links">
+                {locale === "en" && (
+                    <a href={UAE_POLICY_PUBLICATION.summaryUrl} lang="en">{UAE_POLICY_PUBLICATION.en.summaryLabel}</a>
+                )}
+                <a href={UAE_POLICY_PUBLICATION.originalUrl}>{policy.originalLabel}</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<style>
+    .policy-links {
+        margin-top: 0.8rem;
+    }
+
+    .policy-links a {
+        text-decoration: underline;
+    }
+
+    .section-title {
+        display: flex;
+        align-items: baseline;
+        gap: 0.65rem;
+    }
+
+    .section-title::before {
+        content: "";
+        flex: 0 0 0.35rem;
+        height: 0.35rem;
+        align-self: center;
+        border-radius: 50%;
+        background: currentColor;
+    }
+
+    .research-section-content {
+        margin-inline-start: 1.5rem;
+    }
+</style>

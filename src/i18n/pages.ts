@@ -1,5 +1,18 @@
 export type Locale = "en" | "ko";
 
+export const RESEARCH_SECTIONS = {
+    en: {
+        academic: "Academic Research",
+        policy: "Policy Research",
+        policyEmpty: "No policy publications listed yet.",
+    },
+    ko: {
+        academic: "학술연구",
+        policy: "정책연구",
+        policyEmpty: "아직 등록된 정책연구 발간물이 없습니다.",
+    },
+} satisfies Record<Locale, { academic: string; policy: string; policyEmpty: string }>;
+
 export type LocalizedPageKey =
     | "home"
     | "publications"

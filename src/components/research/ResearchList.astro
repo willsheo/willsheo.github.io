@@ -43,11 +43,11 @@ function formatJournalHtml(value?: string) {
 
             return (
                 <article class="research-item">
-                    <h2 class="research-title">
+                    <h3 class="research-title">
                         <a href={`/publications/${entry.id}/`}>
                             {entry.data.title}
                         </a>
-                    </h2>
+                    </h3>
 
                     <div class="research-meta">
                         {coauthors && <span>with {coauthors}</span>}

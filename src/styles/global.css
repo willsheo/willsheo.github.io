@@ -31,6 +31,7 @@ html.dark {
 }
 
 html {
+    font-size: 106.25%;
     font-family: "Inter", system-ui, sans-serif;
     scroll-behavior: smooth;
 }
@@ -598,7 +599,7 @@ a:hover,
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     color: var(--foreground);
@@ -635,7 +636,7 @@ a:hover,
     border-radius: 999px;
     padding: 0.25rem 0.65rem;
     color: var(--foreground);
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     font-weight: 700;
     line-height: 1.2;
     text-decoration: none;
@@ -1149,12 +1150,7 @@ a:hover,
         gap: 1rem;
     }
 
-    .nav-link {
-        font-size: 0.85rem;
-    }
-
     .language-switcher {
-        font-size: 0.78rem;
         padding: 0.22rem 0.55rem;
     }
 }

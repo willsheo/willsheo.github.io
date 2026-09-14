@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import ResearchList from "../../../components/research/ResearchList.astro";
+import ResearchSections from "../../../components/research/ResearchSections.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getLocalizedPage } from "../../../i18n/pages";
 
@@ -25,5 +25,5 @@ const publications = (await getCollection("publications")).sort((a, b) => {
         <h1 class="page-title">{content.title}</h1>
     </header>
 
-    <ResearchList publications={publications} />
+    <ResearchSections publications={publications} locale="ko" />
 </BaseLayout>
