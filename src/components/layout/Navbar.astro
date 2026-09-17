@@ -31,6 +31,7 @@ function isCurrentPage(href: string, pageKey: LocalizedPageKey): boolean {
         {
             NAV_LINKS.filter((link) => {
                 const pageKey = getPageKey(link.href);
+                if (currentLocale === "ar" && pageKey === "cv") return false;
                 const pageConfig = (PAGES as any)[pageKey];
                 return link.isActive !== false && pageConfig?.active !== false;
             }).map((link) => {
@@ -38,7 +39,7 @@ function isCurrentPage(href: string, pageKey: LocalizedPageKey): boolean {
                 const localizedPage = getLocalizedPage(currentLocale, pageKey);
                 const href = localizedPage.path;
                 const label =
-                    currentLocale === "ko" ? localizedPage.title : link.label;
+                    currentLocale !== "en" ? localizedPage.title : link.label;
 
                 return (
                     <li>

@@ -43,7 +43,7 @@ const siteURL = Astro.site ?? new URL(SITE.website);
 const canonicalURL = new URL(Astro.url.pathname, siteURL);
 const absoluteImageURL = new URL(ogImage, siteURL);
 const fullTitle = title === SITE.title ? SITE.title : `${title} | ${SITE.title}`;
-const ogLocale = lang === "ko" ? "ko_KR" : "en_US";
+const ogLocale = lang === "ar" ? "ar_AR" : lang === "ko" ? "ko_KR" : "en_US";
 const personId = new URL("/#person", siteURL).href;
 const websiteId = new URL("/#website", siteURL).href;
 const webPageId = new URL(`${Astro.url.pathname}#webpage`, siteURL).href;
@@ -108,7 +108,7 @@ const jsonLd = [...defaultStructuredData, ...pageStructuredData];
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} dir={lang === "ar" ? "rtl" : "ltr"}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />

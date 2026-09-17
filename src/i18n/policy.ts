@@ -2,6 +2,14 @@ export const UAE_POLICY_PUBLICATION = {
     summaryUrl: "/publications/policy/uae-opec-exit/",
     originalUrl: "https://www.kiep.go.kr/gallery.es?mid=a10102030000&bid=0004&list_no=12587&act=view",
     date: "2026-09-14",
+    ar: {
+        summaryUrl: "/ar/publications/policy/uae-opec-exit/",
+        title: "انسحاب الإمارات من أوبك: تداعياته على تعاون كوريا مع الدول الخليجية المنتجة للنفط",
+        series: "KIEP 세계경제 포커스 9-63호",
+        dateLabel: "١٤ سبتمبر ٢٠٢٦",
+        summaryLabel: "الملخص",
+        originalLabel: "المنشور الأصلي بالكورية",
+    },
     en: {
         title: "The UAE’s Exit from OPEC: Implications for Korea's Cooperation with Gulf Oil Producers",
         series: "KIEP 세계경제 포커스 9-63호",

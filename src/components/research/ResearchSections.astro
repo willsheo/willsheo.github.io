@@ -17,7 +17,9 @@ const policy = UAE_POLICY_PUBLICATION[locale];
 <section class="section" aria-labelledby="academic-research">
     <h2 id="academic-research" class="section-title">{labels.academic}</h2>
     <div class="research-section-content">
-        <ResearchList publications={publications} />
+        <div dir={locale === "ar" ? "ltr" : undefined} lang={locale === "ar" ? "en" : undefined}>
+            <ResearchList publications={publications} />
+        </div>
     </div>
 </section>
 
@@ -26,15 +28,18 @@ const policy = UAE_POLICY_PUBLICATION[locale];
     <div class="research-section-content">
         <article class="research-item">
             <h3 class="research-title">
-                <a href={locale === "ko" ? UAE_POLICY_PUBLICATION.originalUrl : UAE_POLICY_PUBLICATION.summaryUrl}>{policy.title}</a>
+                <a href={locale === "ar" ? UAE_POLICY_PUBLICATION.ar.summaryUrl : locale === "en" ? UAE_POLICY_PUBLICATION.summaryUrl : UAE_POLICY_PUBLICATION.originalUrl}>{policy.title}</a>
             </h3>
             <div class="research-meta">
-                <span>{policy.series}</span>
+                <span dir="auto">{policy.series}</span>
                 <time datetime={UAE_POLICY_PUBLICATION.date}>{policy.dateLabel}</time>
             </div>
             <div class="research-meta policy-links">
                 {locale === "en" && (
                     <a href={UAE_POLICY_PUBLICATION.summaryUrl} lang="en">{UAE_POLICY_PUBLICATION.en.summaryLabel}</a>
+                )}
+                {locale === "ar" && (
+                    <a href={UAE_POLICY_PUBLICATION.ar.summaryUrl} lang="ar">{UAE_POLICY_PUBLICATION.ar.summaryLabel}</a>
                 )}
                 <a href={UAE_POLICY_PUBLICATION.originalUrl}>{policy.originalLabel}</a>
             </div>

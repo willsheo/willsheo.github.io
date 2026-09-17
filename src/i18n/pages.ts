@@ -1,6 +1,9 @@
-export type Locale = "en" | "ko";
+import { UAE_POLICY_PUBLICATION } from "./policy";
+
+export type Locale = "en" | "ko" | "ar";
 
 export const RESEARCH_SECTIONS = {
+    ar: { academic: "البحوث الأكاديمية", policy: "بحوث السياسات", policyEmpty: "لا توجد منشورات مدرجة حاليًا." },
     en: {
         academic: "Academic Research",
         policy: "Policy Research",
@@ -40,6 +43,7 @@ export interface LocalizedPageContent {
 export const LANGUAGE_LABELS: Record<Locale, string> = {
     en: "English",
     ko: "한국어",
+    ar: "العربية",
 };
 
 export interface LocalizedProfileContent {
@@ -51,7 +55,15 @@ export interface LocalizedProfileContent {
     kiepProfileLabel: string;
 }
 
-export const LOCALIZED_PROFILE: Record<"ko", LocalizedProfileContent> = {
+export const LOCALIZED_PROFILE: Record<"ko" | "ar", LocalizedProfileContent> = {
+    ar: {
+        name: "سون مين حو",
+        institution: "معهد كوريا للسياسات الاقتصادية الدولية (KIEP)",
+        title: "زميل بحث مشارك",
+        avatarAlt: "صورة سون مين حو",
+        kiepProfileUrl: "https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481",
+        kiepProfileLabel: "الملف الشخصي لدى KIEP باللغة الإنجليزية",
+    },
     ko: {
         name: "허선민",
         institution: "대외경제정책연구원(KIEP)",
@@ -65,8 +77,33 @@ export const LOCALIZED_PROFILE: Record<"ko", LocalizedProfileContent> = {
 
 export const LOCALIZED_PAGES: Record<
     Locale,
-    Record<LocalizedPageKey, LocalizedPageContent>
+    Partial<Record<LocalizedPageKey, LocalizedPageContent>>
 > = {
+    ar: {
+        home: {
+            title: "نبذة عني", path: "/ar/", status: "draft",
+            description: "سون مين حو، زميل بحث مشارك في معهد كوريا للسياسات الاقتصادية الدولية (KIEP)، متخصص في اقتصاد الشرق الأوسط والاقتصاد البيئي.",
+            body: [
+                "أعمل زميل بحث مشارك في معهد كوريا للسياسات الاقتصادية الدولية (KIEP)، حيث أتولى مسؤولية البحوث الاقتصادية المتعلقة بالشرق الأوسط. وتتناول أبحاثي كيفية استجابة الأسواق والأسر للصدمات البيئية، بما في ذلك الكوارث الطبيعية والمخاطر المناخية والتلوث العابر للحدود.",
+            ],
+            links: [{ label: "تحميل السيرة الذاتية بالإنجليزية (PDF)", href: "/files/CV.pdf" }],
+        },
+        publications: { title: "البحوث", path: "/ar/publications/", status: "draft", description: "البحوث الأكاديمية وبحوث السياسات لسون مين حو.", body: [] },
+        teaching: {
+            title: "التدريس", path: "/ar/teaching/", status: "draft", body: [],
+            facts: [
+                { label: "مجالات التدريس", value: "الاقتصاد، والاقتصاد القياسي، والإحصاء، والاقتصاد البيئي" },
+                { label: "المقررات", value: "الإحصاء الاقتصادي، ومقدمة في الاقتصاد القياسي (١ و٢)، والاقتصاد البيئي، والاقتصاد الجزئي المتوسط، ومبادئ الاقتصاد الجزئي، ودورة الرياضيات التحضيرية لطلاب الدكتوراه في الاقتصاد" },
+                { label: "شهادة التدريس", value: "شهادة التدريس في الكليات والجامعات (CCUT)، جامعة كاليفورنيا، سانتا باربرا" },
+            ],
+        },
+        book: { title: "الكتاب", path: "/ar/book/", status: "draft", body: [], links: [{ label: "The Counterfactual (بالإنجليزية)", href: "/book/the-counterfactual/" }] },
+        contact: {
+            title: "التواصل", path: "/ar/contact/", status: "draft",
+            body: ["أرحب بالتواصل مع الباحثين والأكاديميين وصنّاع السياسات في منطقة الشرق الأوسط وشمال أفريقيا. ونسعى في معهد كوريا للسياسات الاقتصادية الدولية (KIEP) إلى تعزيز الروابط مع الجامعات والمؤسسات البحثية في مختلف أنحاء المنطقة. ومن خلال الندوات والمؤتمرات التي ننظمها في كوريا والمنطقة، نجمع بين الأوساط الأكاديمية ودوائر صنع السياسات لتبادل الأفكار واستكشاف فرص التعاون. يسعدني تواصلكم."],
+            facts: [{ label: "البريد الإلكتروني", value: "sheo@kiep.go.kr" }],
+        },
+    },
     en: {
         home: {
             title: "About",
@@ -102,7 +139,7 @@ export const LOCALIZED_PAGES: Record<
             title: "Contact",
             path: "/contact/",
             status: "published",
-            body: [],
+            body: ["I welcome opportunities to connect with researchers, scholars, and policymakers across the Middle East and North Africa (MENA). At KIEP, we seek to strengthen ties with universities and research institutes throughout the region. Through seminars and conferences in Korea and the region, we bring together academic and policy communities to exchange ideas and explore opportunities for collaboration. I look forward to hearing from you."],
         },
     },
     ko: {
@@ -188,7 +225,25 @@ export function getLocalizedPage(
     locale: Locale,
     page: LocalizedPageKey,
 ): LocalizedPageContent {
-    return LOCALIZED_PAGES[locale][page];
+    const content = LOCALIZED_PAGES[locale][page];
+    if (!content) throw new Error(`Missing localized page: ${locale}/${page}`);
+    return content;
+}
+
+export function getLanguageLinks(pathname: string) {
+    const current = getLocaleFromPath(pathname);
+    const page = getPageKeyFromPath(current, pathname);
+    const isPolicySummary = [UAE_POLICY_PUBLICATION.summaryUrl, UAE_POLICY_PUBLICATION.ar.summaryUrl]
+        .includes(ensureTrailingSlash(pathname));
+    return (Object.keys(LANGUAGE_LABELS) as Locale[])
+        .filter((locale) => locale !== current && LOCALIZED_PAGES[locale][page])
+        .map((locale) => ({
+            locale,
+            label: LANGUAGE_LABELS[locale],
+            href: isPolicySummary && locale === "ar" ? UAE_POLICY_PUBLICATION.ar.summaryUrl
+                : isPolicySummary && locale === "en" ? UAE_POLICY_PUBLICATION.summaryUrl
+                : getLocalizedPage(locale, page).path,
+        }));
 }
 
 export function getAlternateLocale(locale: Locale): Locale {
@@ -196,6 +251,7 @@ export function getAlternateLocale(locale: Locale): Locale {
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
+    if (pathname === "/ar" || pathname.startsWith("/ar/")) return "ar";
     return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en";
 }
 
@@ -221,8 +277,8 @@ function getPageKeyFromPath(
     }
 
     const pathWithoutLocale =
-        locale === "ko"
-            ? normalizedPath.replace(/^\/ko\/?/, "/")
+        locale !== "en"
+            ? normalizedPath.replace(/^\/(ko|ar)\/?/, "/")
             : normalizedPath;
     const section = pathWithoutLocale.split("/").filter(Boolean)[0];
 

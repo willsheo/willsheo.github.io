@@ -2,6 +2,7 @@
 import { SITE, SOCIALS, SOCIAL_ICONS } from "../../config";
 import { getCollection } from "astro:content";
 import Icon from "../ui/Icon.astro";
+import NamePronunciation from "../ui/NamePronunciation.astro";
 import { Image } from 'astro:assets';
 import {
     getLocaleFromPath,
@@ -11,13 +12,13 @@ import {
 const bioCollection = await getCollection("bio");
 const bio = bioCollection[0]?.data;
 const locale = getLocaleFromPath(Astro.url.pathname);
-const localizedProfile = locale === "ko" ? LOCALIZED_PROFILE.ko : undefined;
+const localizedProfile = locale !== "en" ? LOCALIZED_PROFILE[locale] : undefined;
 const activeSocials = SOCIALS.filter((s) => s.isActive).map((social) =>
-    locale === "ko" && social.name === "KIEP Profile"
+    localizedProfile && social.name === "KIEP Profile"
         ? {
               ...social,
-              href: LOCALIZED_PROFILE.ko.kiepProfileUrl,
-              linkTitle: LOCALIZED_PROFILE.ko.kiepProfileLabel,
+              href: localizedProfile.kiepProfileUrl,
+              linkTitle: localizedProfile.kiepProfileLabel,
           }
         : social,
 );
@@ -32,7 +33,7 @@ const profile = {
 ---
 
 <aside class="sidebar max-lg:flex-row max-lg:flex-wrap max-lg:gap-3 max-md:gap-2">
-    <div class="flex flex-col items-center text-center gap-4 max-lg:flex-row max-lg:text-left max-lg:gap-3 max-lg:items-center max-md:gap-2">
+    <div class="sidebar-profile flex flex-col items-center text-center gap-4 max-lg:flex-row max-lg:text-left max-lg:gap-3 max-lg:items-center max-md:gap-2">
         {bio?.avatar && (
             <Image
                 src={`/${bio.avatar}`}
@@ -46,11 +47,16 @@ const profile = {
             />
         )}
         <div
-            class={`flex flex-col items-center ${
+            class={`min-w-0 flex flex-col items-center ${
                 locale === "ko" ? "sidebar-profile-ko" : "max-lg:items-start"
             }`}
         >
-            {profile.name && <h1 class="sidebar-name">{profile.name}</h1>}
+            {profile.name && (
+                <div class="sidebar-name-row flex items-center gap-1">
+                    <h1 class="sidebar-name">{profile.name}</h1>
+                    {(locale === "ar" || locale === "en") && <NamePronunciation locale={locale} />}
+                </div>
+            )}
             {profile.institution && (
                 <p class="sidebar-info">
                     {profile.institution}

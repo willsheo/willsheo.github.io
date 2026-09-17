@@ -31,11 +31,11 @@ const robots =
         <div class="prose">
             {content.body.map((paragraph) => <p>{paragraph}</p>)}
             {content.facts && content.facts.length > 0 && (
-                <ul class="localized-facts">
+                <ul class:list={["localized-facts", { "contact-facts": page === "contact" }]}>
                     {content.facts.map((fact) => (
                         <li>
                             <strong>{fact.label}</strong>
-                            <span class="localized-fact-value">
+                            <span class="localized-fact-value" dir="auto">
                                 {Array.isArray(fact.value)
                                     ? fact.value.map((line) => <span>{line}</span>)
                                     : fact.value}

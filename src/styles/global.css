@@ -42,6 +42,36 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+html[lang="ar"] {
+    font-family: "Tahoma", "Arial", sans-serif;
+    line-height: 1.8;
+}
+
+html[dir="rtl"] .prose ul,
+html[dir="rtl"] .prose ol {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+html[dir="rtl"] .prose .localized-facts {
+    padding-right: 0;
+}
+
+html[lang="ar"] .prose .contact-facts li {
+    grid-template-columns: 0.4rem max-content minmax(0, 1fr);
+}
+
+html[lang="ar"] .contact-facts strong {
+    white-space: nowrap;
+}
+
+html[dir="rtl"] .localized-fact-value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    unicode-bidi: isolate;
+    text-align: start;
+}
+
 
 /* ===========================================
    TYPOGRAPHY SYSTEM
@@ -526,6 +556,25 @@ a:hover,
     color: var(--foreground);
 }
 
+html[lang="en"] .sidebar-name-row .sidebar-name {
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 360px) {
+    html[lang="en"] .sidebar-profile {
+        width: 100%;
+    }
+    html[lang="en"] .sidebar-name-row .sidebar-name {
+        font-size: 1.05rem;
+    }
+    html[lang="en"] .sidebar .sidebar-avatar {
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+    }
+}
+
 .sidebar-info {
     font-size: 0.85rem;
     color: var(--foreground);
@@ -571,6 +620,7 @@ a:hover,
 
 /* Navbar */
 .navbar {
+    flex-wrap: wrap;
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: space-between;
@@ -589,6 +639,7 @@ a:hover,
 }
 
 .nav-links {
+    min-width: 0;
     display: flex;
     gap: 1.5rem;
     list-style: none;
@@ -656,7 +707,7 @@ a:hover,
     display: flex;
     flex-direction: column;
     background: var(--background);
-    border-left: 1px solid var(--border);
+    border-inline-start: 1px solid var(--border);
     transition: background 0.3s ease;
 }
 
@@ -1095,7 +1146,7 @@ a:hover,
    RESPONSIVE
    =========================================== */
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
     .sidebar {
         width: 100%;
         height: auto;
@@ -1119,7 +1170,7 @@ a:hover,
     .main-content {
         width: 100%;
         flex: none;
-        border-left: none;
+        border-inline-start: none;
     }
 }
 
@@ -1147,6 +1198,7 @@ a:hover,
     }
 
     .nav-links {
+        flex-basis: 100%;
         gap: 1rem;
     }
 

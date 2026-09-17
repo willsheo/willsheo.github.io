@@ -1,14 +1,18 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
+const lang = frontmatter.lang ?? "en";
+const dateLabel = new Intl.DateTimeFormat(lang === "ar" ? "ar" : "en-US", {
+    year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+}).format(new Date(frontmatter.date));
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description} ogType="article" lang="en">
+<BaseLayout title={frontmatter.title} description={frontmatter.description} ogType="article" lang={lang} robots={lang === "ar" ? "noindex, nofollow" : "index, follow"}>
     <article>
         <header class="page-header">
             <h1 class="page-title">{frontmatter.title}</h1>
             <p class="page-subtitle">{frontmatter.author}</p>
-            <time datetime={frontmatter.date}>September 14, 2026</time>
+            <time datetime={frontmatter.date}>{dateLabel}</time>
         </header>
         <div class="prose"><slot /></div>
     </article>

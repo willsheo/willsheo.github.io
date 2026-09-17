@@ -1,0 +1,11 @@
+---
+import LocalizedPageShell from "../../components/i18n/LocalizedPageShell.astro";
+import type { LocalizedPageKey } from "../../i18n/pages";
+export function getStaticPaths() {
+    return ["home", "teaching", "book", "contact"].map((page) => ({
+        params: { page: page === "home" ? undefined : page }, props: { page },
+    }));
+}
+const { page } = Astro.props as { page: LocalizedPageKey };
+---
+<LocalizedPageShell locale="ar" page={page} />

@@ -1,27 +1,14 @@
 ---
-import {
-    getAlternateLocale,
-    getAlternateLocalePath,
-    getLocaleFromPath,
-    LANGUAGE_LABELS,
-} from "../../i18n/pages";
-
-const currentLocale = getLocaleFromPath(Astro.url.pathname);
-const alternateLocale = getAlternateLocale(currentLocale);
-const href = getAlternateLocalePath(Astro.url.pathname);
-const label = LANGUAGE_LABELS[alternateLocale];
-const ariaLabel =
-    alternateLocale === "ko"
-        ? "View this page in Korean"
-        : "View this page in English";
+import { getLanguageLinks } from "../../i18n/pages";
+const links = getLanguageLinks(Astro.url.pathname);
 ---
 
-<a
-    class="language-switcher"
-    href={href}
-    hreflang={alternateLocale}
-    lang={alternateLocale}
-    aria-label={ariaLabel}
->
-    {label}
-</a>
+<div class="language-options">
+    {links.map(({ locale, label, href }) => (
+        <a class="language-switcher" href={href} hreflang={locale} lang={locale} dir="auto">{label}</a>
+    ))}
+</div>
+
+<style>
+    .language-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+</style>

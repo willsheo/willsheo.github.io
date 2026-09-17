@@ -1,0 +1,14 @@
+---
+import { getCollection } from "astro:content";
+import ResearchSections from "../../../components/research/ResearchSections.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getLocalizedPage } from "../../../i18n/pages";
+const content = getLocalizedPage("ar", "publications");
+const publications = (await getCollection("publications")).sort((a, b) =>
+    (b.data.date ? new Date(b.data.date).getTime() : 0) - (a.data.date ? new Date(a.data.date).getTime() : 0),
+);
+---
+<BaseLayout title={content.title} description={content.description} robots="noindex, nofollow" lang="ar">
+    <header class="page-header"><h1 class="page-title">{content.title}</h1></header>
+    <ResearchSections publications={publications} locale="ar" />
+</BaseLayout>

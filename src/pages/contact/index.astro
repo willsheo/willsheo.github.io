@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { PAGES } from "../../config";
+import { getLocalizedPage } from "../../i18n/pages";
+const content = getLocalizedPage("en", "contact");
 ---
 
 <BaseLayout title={PAGES.contact.title} description={PAGES.contact.description}>
@@ -11,6 +13,7 @@ import { PAGES } from "../../config";
         </header>
 
         <div class="prose">
+            {content.body.map((paragraph) => <p>{paragraph}</p>)}
             <ul>
                 <li>Email: sheo [at] kiep [dot] go [dot] kr</li>
                 <li><a href="https://www.kiep.go.kr/expertsView.es?mid=a20104000000&staff_seq=481">KIEP profile</a></li>

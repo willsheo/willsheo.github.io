@@ -1,0 +1,64 @@
+---
+import Icon from "./Icon.astro";
+interface Props { locale: "ar" | "en"; }
+const { locale } = Astro.props;
+const label = locale === "ar"
+    ? "استمع إلى نطق الاسم بالكورية (صوت اصطناعي)"
+    : "Hear my name in Korean (synthetic voice)";
+const errorMessage = locale === "ar"
+    ? "تعذر تشغيل الصوت. يرجى المحاولة مرة أخرى."
+    : "Audio could not be played. Please try again.";
+---
+
+<name-pronunciation data-error-message={errorMessage}>
+    <button type="button" aria-label={label} title={label}>
+        <Icon name="Volume2" size={19} />
+    </button>
+    <audio src="/heo-seonmin-pronunciation.mp3" preload="none"></audio>
+    <span class="sr-only" role="status"></span>
+</name-pronunciation>
+
+<script>
+    class NamePronunciation extends HTMLElement {
+        connectedCallback() {
+            const button = this.querySelector("button")!;
+            const audio = this.querySelector("audio")!;
+            const status = this.querySelector('[role="status"]')!;
+            button.onclick = async () => {
+                status.textContent = "";
+                audio.currentTime = 0;
+                try {
+                    await audio.play();
+                } catch {
+                    status.textContent = this.dataset.errorMessage ?? "";
+                }
+            };
+            audio.onplay = () => button.classList.add("playing");
+            audio.onended = audio.onpause = () => button.classList.remove("playing");
+        }
+        disconnectedCallback() {
+            this.querySelector("audio")?.pause();
+        }
+    }
+    if (!customElements.get("name-pronunciation")) {
+        customElements.define("name-pronunciation", NamePronunciation);
+    }
+</script>
+
+<style>
+    :host, name-pronunciation { display: inline-flex; flex: none; }
+    button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        color: var(--text-muted);
+        background: transparent;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover, button.playing { color: var(--accent); background: var(--surface); }
+    button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>

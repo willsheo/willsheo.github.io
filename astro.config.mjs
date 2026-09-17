@@ -19,7 +19,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   i18n: {
-    locales: ['en', 'ko'],
+    locales: ['en', 'ko', 'ar'],
     defaultLocale: 'en',
     routing: {
       prefixDefaultLocale: false,
@@ -28,7 +28,7 @@ export default defineConfig({
   site: 'https://swheo.com',
   integrations: [
     sitemap({
-      filter: (page) => !page.startsWith('https://swheo.com/ko/'),
+      filter: (page) => !/^https:\/\/swheo\.com\/(ko|ar)\//.test(page),
     }),
   ],
 });
