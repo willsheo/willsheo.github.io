@@ -72,7 +72,21 @@ const cv = defineCollection({
     }),
 });
 
+const blog = defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+        language: z.enum(["en", "ko", "ar"]),
+        category: z.enum(["policy", "academic", "reflections"]),
+        slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+        draft: z.boolean().default(true),
+    }),
+});
+
 export const collections = {
+    blog,
     'publications': publications,
     'bio': bio,
     'cv': cv,

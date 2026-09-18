@@ -19,6 +19,7 @@ export const RESEARCH_SECTIONS = {
 export type LocalizedPageKey =
     | "home"
     | "publications"
+    | "blog"
     | "book"
     | "teaching"
     | "cv"
@@ -88,6 +89,7 @@ export const LOCALIZED_PAGES: Record<
             ],
             links: [{ label: "تحميل السيرة الذاتية بالإنجليزية (PDF)", href: "/files/CV.pdf" }],
         },
+        blog: { title: "المدونة", path: "/ar/blog/", status: "published", description: "مقالات حول بحوث السياسات والبحوث الأكاديمية.", body: [] },
         publications: { title: "البحوث", path: "/ar/publications/", status: "draft", description: "البحوث الأكاديمية وبحوث السياسات لسون مين حو.", body: [] },
         teaching: {
             title: "التدريس", path: "/ar/teaching/", status: "draft", body: [],
@@ -111,6 +113,7 @@ export const LOCALIZED_PAGES: Record<
             status: "published",
             body: [],
         },
+        blog: { title: "Blog", path: "/blog/", status: "published", description: "Notes on policy research and academic research by Seonmin Heo.", body: [] },
         publications: {
             title: "Research",
             path: "/publications/",
@@ -143,6 +146,7 @@ export const LOCALIZED_PAGES: Record<
         },
     },
     ko: {
+        blog: { title: "블로그", path: "/ko/blog/", status: "published", description: "정책연구와 학술연구에 관한 글.", body: [] },
         home: {
             title: "소개",
             path: "/ko/",
@@ -283,6 +287,8 @@ function getPageKeyFromPath(
     const section = pathWithoutLocale.split("/").filter(Boolean)[0];
 
     switch (section) {
+        case "blog":
+            return "blog";
         case "publications":
             return "publications";
         case "book":

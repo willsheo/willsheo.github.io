@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getLocalizedPage, type Locale } from "../../i18n/pages";
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const content = getLocalizedPage(locale, "blog");
+const labels = {
+    en: { policy: "Policy Research", academic: "Academic Research", reflections: "Reflections", empty: "No posts yet." },
+    ko: { policy: "정책연구", academic: "학술연구", reflections: "단상", empty: "아직 게시된 글이 없습니다." },
+    ar: { policy: "بحوث السياسات", academic: "البحوث الأكاديمية", reflections: "تأملات", empty: "لا توجد مقالات منشورة بعد." },
+}[locale];
+const posts = (await getCollection("blog", ({ data }) => !data.draft && data.language === locale))
+    .map(({ data }) => ({ ...data, href: `${content.path}${data.slug}/` }));
+posts.sort((a, b) => b.date.localeCompare(a.date));
+---
+<BaseLayout title={content.title} description={content.description} lang={locale}>
+    <header class="page-header"><h1 class="page-title">{content.title}</h1></header>
+    {posts.length === 0 ? <p>{labels.empty}</p> : (
+        <div>{posts.map(post => (
+            <article class="research-item">
+                <div class="research-meta">
+                    <span>{labels[post.category]}</span>
+                    <time datetime={post.date}>{new Intl.DateTimeFormat(locale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(post.date))}</time>
+                </div>
+                <h2 class="research-title"><a href={post.href}>{post.title}</a></h2>
+                {post.description && <p>{post.description}</p>}
+            </article>
+        ))}</div>
+    )}
+</BaseLayout>

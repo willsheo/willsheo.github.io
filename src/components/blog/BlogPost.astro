@@ -1,0 +1,32 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getLocalizedPage } from "../../i18n/pages";
+interface Props { post: CollectionEntry<"blog">; }
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, date, language } = post.data;
+const blog = getLocalizedPage(language, "blog");
+const backLabel = { en: "Back to blog list", ko: "블로그 목록으로", ar: "العودة إلى قائمة المقالات" }[language];
+---
+<BaseLayout title={title} description={description} lang={language} ogType="article">
+    <article>
+        <header class="page-header">
+            <a class="blog-back-link" href={blog.path}>{backLabel}</a>
+            <h1 class="page-title">{title}</h1>
+            <time datetime={date}>{new Intl.DateTimeFormat(language, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(date))}</time>
+        </header>
+        <div class="prose blog-prose"><Content /></div>
+    </article>
+</BaseLayout>
+<style>
+    .blog-back-link {
+        display: inline-block;
+        margin-bottom: 1.25rem;
+    }
+</style>
+<style is:global>
+    .blog-prose img { max-width: 100%; height: auto; }
+    .blog-prose table { display: block; max-width: 100%; overflow-x: auto; }
+    .blog-prose .katex-display { overflow-x: auto; overflow-y: hidden; direction: ltr; }
+</style>
