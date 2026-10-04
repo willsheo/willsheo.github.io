@@ -153,7 +153,7 @@ export const LOCALIZED_PAGES: Record<
             status: "draft",
             description:
                 "대외경제정책연구원(KIEP) 부연구위원 허선민의 개인 웹사이트입니다.",
-            body: [],
+            body: ["제 홈페이지를 방문해 주셔서 감사합니다. 중동 지역 연구나 학술연구 협업에 관심이 있으시거나, 연구에 관해 자유롭게 의견을 나누고 싶으시다면 언제든지 편하게 연락 주세요."],
             facts: [
                 {
                     label: "소속",
