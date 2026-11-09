@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { RESEARCH_SECTIONS, type Locale } from "../../i18n/pages";
 import ResearchList from "./ResearchList.astro";
 import { UAE_POLICY_PUBLICATION } from "../../i18n/policy";
+import PresentationList from "./PresentationList.astro";
 
 interface Props {
     publications: CollectionEntry<"publications">[];
@@ -13,15 +14,6 @@ const { publications, locale } = Astro.props;
 const labels = RESEARCH_SECTIONS[locale];
 const policy = UAE_POLICY_PUBLICATION[locale];
 ---
-
-<section class="section" aria-labelledby="academic-research">
-    <h2 id="academic-research" class="section-title">{labels.academic}</h2>
-    <div class="research-section-content">
-        <div dir={locale === "ar" ? "ltr" : undefined} lang={locale === "ar" ? "en" : undefined}>
-            <ResearchList publications={publications} />
-        </div>
-    </div>
-</section>
 
 <section class="section" aria-labelledby="policy-research">
     <h2 id="policy-research" class="section-title">{labels.policy}</h2>
@@ -44,6 +36,17 @@ const policy = UAE_POLICY_PUBLICATION[locale];
                 <a href={UAE_POLICY_PUBLICATION.originalUrl}>{policy.originalLabel}</a>
             </div>
         </article>
+        <PresentationList locale={locale} category="policy" />
+    </div>
+</section>
+
+<section class="section" aria-labelledby="academic-research">
+    <h2 id="academic-research" class="section-title">{labels.academic}</h2>
+    <div class="research-section-content">
+        <div dir={locale === "ar" ? "ltr" : undefined} lang={locale === "ar" ? "en" : undefined}>
+            <ResearchList publications={publications} />
+        </div>
+        <PresentationList locale={locale} category="academic" />
     </div>
 </section>
 
