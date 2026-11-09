@@ -27,7 +27,19 @@ const iresKiepDialogue = {
     language: "en" as const,
 };
 
+const koreaOmanForum = {
+    title: "Korea-Oman Economic Cooperation Forum",
+    location: "Academy Hall, Royal Academy of Management, Muscat, Oman",
+    language: "en" as const,
+};
+
 export const PRESENTATIONS: Presentation[] = [{
+    id: "korea-oman-economic-cooperation-forum-2026",
+    date: "2026-11-03",
+    category: "policy",
+    approvedForPublication: true,
+    translations: { en: koreaOmanForum, ko: koreaOmanForum, ar: koreaOmanForum },
+}, {
     id: "ires-kiep-strategic-dialogue-2026",
     date: "2026-09-15",
     category: "policy",
