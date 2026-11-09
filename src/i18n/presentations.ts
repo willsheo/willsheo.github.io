@@ -12,14 +12,25 @@ export interface Presentation {
     category: "academic" | "policy";
     // Set true only after verifying the facts and permission to share them.
     approvedForPublication: boolean;
-    eventUrl: string;
+    eventUrl?: string;
     slidesUrl?: string;
     translations: Partial<Record<Locale, {
         title: string;
-        event: string;
-        organizer: string;
+        language?: Locale;
         location: string;
     }>>;
 }
 
-export const PRESENTATIONS: Presentation[] = [];
+const iresKiepDialogue = {
+    title: "IRES-KIEP Strategic Dialogue",
+    location: "IRES Headquarters, Rabat, Morocco",
+    language: "en" as const,
+};
+
+export const PRESENTATIONS: Presentation[] = [{
+    id: "ires-kiep-strategic-dialogue-2026",
+    date: "2026-09-15",
+    category: "policy",
+    approvedForPublication: true,
+    translations: { en: iresKiepDialogue, ko: iresKiepDialogue, ar: iresKiepDialogue },
+}];

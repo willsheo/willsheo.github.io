@@ -14,41 +14,32 @@ const presentations = PRESENTATIONS
     .sort((a, b) => b.date.localeCompare(a.date));
 ---
 
-<section class="presentation-group" aria-labelledby={`presentations-${category}`}>
-    <h3 id={`presentations-${category}`} class="presentation-group-title">{labels[category]}</h3>
+<section class="section" aria-labelledby={`presentations-${category}`}>
+    <h2 id={`presentations-${category}`} class="section-title">{labels[category]}</h2>
+    <div class="presentation-content">
     {presentations.length === 0 && <p>{labels.empty}</p>}
     {presentations.map(item => {
         const details = item.translations[locale]!;
         return (
-            <article class="research-item">
-                <h4 class="research-title" dir="auto">{details.title}</h4>
-                <dl class="presentation-facts">
-                    <div><dt>{labels.event}</dt><dd dir="auto">{details.event}</dd></div>
-                    <div><dt>{labels.organizer}</dt><dd dir="auto">{details.organizer}</dd></div>
-                    <div><dt>{labels.date}</dt><dd><time datetime={item.date}>{new Intl.DateTimeFormat(locale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(item.date))}</time></dd></div>
-                    <div><dt>{labels.location}</dt><dd dir="auto">{details.location}</dd></div>
-                </dl>
-                <div class="research-meta presentation-links">
-                    <a href={item.eventUrl}>{labels.source}</a>
-                    {item.slidesUrl && <a href={item.slidesUrl}>{labels.slides}</a>}
+            <article class="research-item" lang={details.language} dir={details.language === "en" ? "ltr" : undefined}>
+                <h3 class="research-title" dir="auto">{details.title}</h3>
+                <div class="research-meta presentation-meta">
+                    <span>{details.location}</span>
+                    <time datetime={item.date}>{new Intl.DateTimeFormat(details.language ?? locale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(item.date))}</time>
                 </div>
+                {(item.eventUrl || item.slidesUrl) && <div class="research-meta presentation-links">
+                    {item.eventUrl && <a href={item.eventUrl}>{labels.source}</a>}
+                    {item.slidesUrl && <a href={item.slidesUrl}>{labels.slides}</a>}
+                </div>}
             </article>
         );
     })}
+    </div>
 </section>
 
 <style>
-    .presentation-group { margin-top: 1.75rem; }
-    .presentation-group-title { font-size: 1.05rem; margin-bottom: 0.75rem; }
-    .presentation-facts { margin: 0.75rem 0; }
-    .presentation-facts > div {
-        display: grid;
-        grid-template-columns: minmax(5rem, auto) minmax(0, 1fr);
-        gap: 0.75rem;
-        margin-block: 0.35rem;
-    }
-    .presentation-facts dt { font-weight: 600; }
-    .presentation-facts dd { margin: 0; overflow-wrap: anywhere; }
+    .presentation-content { margin-inline-start: 1.5rem; }
+    .presentation-meta { column-gap: 1em; font-weight: 400; }
     .presentation-links { margin-top: 0.8rem; }
     .presentation-links a { text-decoration: underline; }
 </style>

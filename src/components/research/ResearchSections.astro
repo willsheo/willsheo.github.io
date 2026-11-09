@@ -36,7 +36,6 @@ const policy = UAE_POLICY_PUBLICATION[locale];
                 <a href={UAE_POLICY_PUBLICATION.originalUrl}>{policy.originalLabel}</a>
             </div>
         </article>
-        <PresentationList locale={locale} category="policy" />
     </div>
 </section>
 
@@ -46,11 +45,19 @@ const policy = UAE_POLICY_PUBLICATION[locale];
         <div dir={locale === "ar" ? "ltr" : undefined} lang={locale === "ar" ? "en" : undefined}>
             <ResearchList publications={publications} />
         </div>
-        <PresentationList locale={locale} category="academic" />
     </div>
 </section>
 
+<header class="page-header presentations-header">
+    <h1 class="page-title">{{ en: "Presentations", ko: "발표", ar: "العروض" }[locale]}</h1>
+</header>
+<div class="presentation-sections">
+    <PresentationList locale={locale} category="policy" />
+    <PresentationList locale={locale} category="academic" />
+</div>
+
 <style>
+    .presentations-header { margin-top: 3rem; }
     .policy-links {
         margin-top: 0.8rem;
     }
@@ -59,13 +66,13 @@ const policy = UAE_POLICY_PUBLICATION[locale];
         text-decoration: underline;
     }
 
-    .section-title {
+    .section-title, .presentation-sections :global(.section-title) {
         display: flex;
         align-items: baseline;
         gap: 0.65rem;
     }
 
-    .section-title::before {
+    .section-title::before, .presentation-sections :global(.section-title)::before {
         content: "";
         flex: 0 0 0.35rem;
         height: 0.35rem;
