@@ -328,8 +328,7 @@ a:hover,
 }
 
 .research-item {
-    padding: 0.7rem 0 0.8rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.45rem 0 0.5rem;
 }
 
 .research-item:first-child {
@@ -341,7 +340,7 @@ a:hover,
     font-weight: 600;
     line-height: 1.35;
     letter-spacing: 0;
-    margin: 0 0 0.3rem;
+    margin: 0 0 0.2rem;
 }
 
 .research-title a {
@@ -357,7 +356,7 @@ a:hover,
 .research-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem 0.85rem;
+    gap: 0.2rem 0.85rem;
     color: var(--foreground);
     font-size: 0.9rem;
     line-height: 1.45;
@@ -376,7 +375,7 @@ a:hover,
 }
 
 .research-abstract {
-    margin-top: 0.45rem;
+    margin-top: 0.3rem;
 }
 
 .research-abstract summary {

@@ -18,10 +18,11 @@ const presentations = PRESENTATIONS
     <h2 id={`presentations-${category}`} class="section-title">{labels[category]}</h2>
     <div class="presentation-content">
     {presentations.length === 0 && <p>{labels.empty}</p>}
+    {presentations.length > 0 && <ul class="presentation-list">
     {presentations.map(item => {
         const details = item.translations[locale]!;
         return (
-            <article class="research-item" lang={details.language} dir={details.language === "en" ? "ltr" : undefined}>
+            <li class="research-item" lang={details.language} dir={details.language === "en" ? "ltr" : undefined}>
                 <h3 class="research-title" dir="auto">{details.title}</h3>
                 <div class="research-meta presentation-meta">
                     <span>{details.location}</span>
@@ -31,14 +32,28 @@ const presentations = PRESENTATIONS
                     {item.eventUrl && <a href={item.eventUrl}>{labels.source}</a>}
                     {item.slidesUrl && <a href={item.slidesUrl}>{labels.slides}</a>}
                 </div>}
-            </article>
+            </li>
         );
     })}
+    </ul>}
     </div>
 </section>
 
 <style>
     .presentation-content { margin-inline-start: 1.5rem; }
+    .presentation-list { list-style: none; margin: 0; padding: 0; }
+    .presentation-list > li { position: relative; padding-inline-start: 1.2rem; }
+    .presentation-list > li::before {
+        content: "";
+        position: absolute;
+        inset-inline-start: 0;
+        top: calc(0.45rem + 0.55em);
+        width: 0.35rem;
+        height: 0.35rem;
+        border-radius: 50%;
+        background: currentColor;
+    }
+    .presentation-list > li:first-child::before { top: 0.55em; }
     .presentation-meta { column-gap: 1em; font-weight: 400; }
     .presentation-links { margin-top: 0.8rem; }
     .presentation-links a { text-decoration: underline; }
