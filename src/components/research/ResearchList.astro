@@ -4,6 +4,9 @@ interface Props {
 }
 
 const { publications } = Astro.props;
+const orderedPublications = [...publications].sort(
+    (a, b) => (b.data.order ?? 0) - (a.data.order ?? 0),
+);
 
 function getCoauthors(author?: string) {
     if (!author) return "";
@@ -37,13 +40,13 @@ function formatJournalHtml(value?: string) {
 
 <section class="research-list">
     {
-        publications.map((entry) => {
+        orderedPublications.map((entry) => {
             const coauthors = getCoauthors(entry.data.author);
             const journal = formatJournalHtml(entry.data.journal);
 
             return (
                 <article class="research-item">
-                    <h3 class="research-title">
+                    <h3 class="research-title" data-work-number={entry.data.order}>
                         <a href={`/publications/${entry.id}/`}>
                             {entry.data.title}
                         </a>

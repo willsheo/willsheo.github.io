@@ -1,5 +1,6 @@
 ---
 title: "Floods and the Frictions of Price Adjustment in Housing Markets"
+order: 2
 author: "Seonmin Will Heo"
 date: "2025-11-01"
 journal: "Working paper"

@@ -85,5 +85,28 @@ const policy = UAE_POLICY_PUBLICATION[locale];
 
     .research-section-content {
         margin-inline-start: 1.5rem;
+        counter-reset: research-work;
+    }
+
+    .research-section-content :global(.research-item) {
+        counter-increment: research-work;
+        padding-inline-start: 1.6rem;
+    }
+
+    .research-section-content :global(.research-title) {
+        position: relative;
+    }
+
+    .research-section-content :global(.research-title)::before {
+        content: counter(research-work) ".";
+        position: absolute;
+        inset-inline-start: -1.6rem;
+        width: 1.3rem;
+        text-align: start;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .research-section-content :global(.research-title[data-work-number])::before {
+        content: attr(data-work-number) ".";
     }
 </style>
